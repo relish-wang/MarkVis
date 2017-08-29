@@ -1,0 +1,119 @@
+[
+  {
+    "launchCount": "1",
+    "startTime": "1503984545114",
+    "endTime": "1503986652918",
+    "filter": "*",
+    "size": "16988",
+    "networkType": "0",
+    "reqCount": "32"
+  },
+  {
+    "launchCount": "1",
+    "startTime": "1503984545114",
+    "endTime": "1503986652918",
+    "filter": "*.*",
+    "size": "7923",
+    "networkType": "2",
+    "reqCount": "13"
+  },
+  {
+    "launchCount": "1",
+    "startTime": "1503984545114",
+    "endTime": "1503986652918",
+    "filter": "*.*",
+    "size": "7969",
+    "networkType": "1",
+    "reqCount": "19"
+  },
+  {
+    "launchCount": "1",
+    "startTime": "1503984545114",
+    "endTime": "1503986652918",
+    "filter": "*.souche.com",
+    "size": "4",
+    "networkType": "2",
+    "reqCount": "3"
+  },
+  {
+    "launchCount": "1",
+    "startTime": "1503984545114",
+    "endTime": "1503986652918",
+    "filter": "*.souche.com",
+    "size": "0",
+    "networkType": "1",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "1",
+    "startTime": "1503984545114",
+    "endTime": "1503986652918",
+    "filter": "*.upload.souche.com",
+    "size": "0",
+    "networkType": "2",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "1",
+    "startTime": "1503984545114",
+    "endTime": "1503986652918",
+    "filter": "*.upload.souche.com",
+    "size": "0",
+    "networkType": "1",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "1",
+    "startTime": "1503984545114",
+    "endTime": "1503986652918",
+    "filter": "qxu1606440290.my3w.com",
+    "size": "1",
+    "networkType": "2",
+    "reqCount": "2"
+  },
+  {
+    "launchCount": "1",
+    "startTime": "1503984545114",
+    "endTime": "1503986652918",
+    "filter": "qxu1606440290.my3w.com",
+    "size": "3",
+    "networkType": "1",
+    "reqCount": "4"
+  },
+  {
+    "launchCount": "1",
+    "startTime": "1503984545114",
+    "endTime": "1503986652918",
+    "filter": "www.httpwatch.com",
+    "size": "33",
+    "networkType": "2",
+    "reqCount": "1"
+  },
+  {
+    "launchCount": "1",
+    "startTime": "1503984545114",
+    "endTime": "1503986652918",
+    "filter": "www.httpwatch.com",
+    "size": "66",
+    "networkType": "1",
+    "reqCount": "2"
+  },
+  {
+    "launchCount": "1",
+    "startTime": "1503984545114",
+    "endTime": "1503986652918",
+    "filter": "alissl.ucdl.pp.uc.cn",
+    "size": "7867",
+    "networkType": "2",
+    "reqCount": "1"
+  },
+  {
+    "launchCount": "1",
+    "startTime": "1503984545114",
+    "endTime": "1503986652918",
+    "filter": "alissl.ucdl.pp.uc.cn",
+    "size": "7867",
+    "networkType": "1",
+    "reqCount": "1"
+  }
+]

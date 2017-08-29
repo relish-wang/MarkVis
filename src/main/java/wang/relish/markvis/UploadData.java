@@ -2,11 +2,9 @@ package wang.relish.markvis;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * 用于上传的统计结果的数据结构
+ * 统计结果
  * <p>
  * | launchCount |      startTime      |       endTime       |        filter        | networkType |  size(KB) |
  * | :---------: | :-----------------: | :-----------------: | :------------------: | :---------: | :-------: |

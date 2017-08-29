@@ -1,6 +1,6 @@
 package wang.relish.markvis;
 
-import com.google.gson.Gson;
+import com.sun.istack.internal.NotNull;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.application.Application;
 import javafx.beans.property.SimpleObjectProperty;
@@ -18,11 +18,10 @@ import javafx.stage.Stage;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class TableViewSample extends Application {
-
-    private final TableView<UploadDataCompat> table = new TableView<UploadDataCompat>();
-    private final ObservableList<UploadDataCompat> data = FXCollections.emptyObservableList();
 
     public static void main(String[] args) {
         launch(args);
@@ -32,139 +31,10 @@ public class TableViewSample extends Application {
     public void start(Stage stage) {
         Scene scene = new Scene(new Group());
         stage.setTitle("Table View Sample");
-        stage.setWidth(800);
+        stage.setWidth(876);
         stage.setHeight(500);
 
-        String str = "[\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*\",\n" +
-                "    \"size\": \"16988\",\n" +
-                "    \"networkType\": \"0\",\n" +
-                "    \"reqCount\": \"32\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*.*\",\n" +
-                "    \"size\": \"7923\",\n" +
-                "    \"networkType\": \"2\",\n" +
-                "    \"reqCount\": \"13\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*.*\",\n" +
-                "    \"size\": \"7969\",\n" +
-                "    \"networkType\": \"1\",\n" +
-                "    \"reqCount\": \"19\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*.souche.com\",\n" +
-                "    \"size\": \"4\",\n" +
-                "    \"networkType\": \"2\",\n" +
-                "    \"reqCount\": \"3\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*.souche.com\",\n" +
-                "    \"size\": \"0\",\n" +
-                "    \"networkType\": \"1\",\n" +
-                "    \"reqCount\": \"0\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*.upload.souche.com\",\n" +
-                "    \"size\": \"0\",\n" +
-                "    \"networkType\": \"2\",\n" +
-                "    \"reqCount\": \"0\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*.upload.souche.com\",\n" +
-                "    \"size\": \"0\",\n" +
-                "    \"networkType\": \"1\",\n" +
-                "    \"reqCount\": \"0\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"qxu1606440290.my3w.com\",\n" +
-                "    \"size\": \"1\",\n" +
-                "    \"networkType\": \"2\",\n" +
-                "    \"reqCount\": \"2\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"qxu1606440290.my3w.com\",\n" +
-                "    \"size\": \"3\",\n" +
-                "    \"networkType\": \"1\",\n" +
-                "    \"reqCount\": \"4\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"www.httpwatch.com\",\n" +
-                "    \"size\": \"33\",\n" +
-                "    \"networkType\": \"2\",\n" +
-                "    \"reqCount\": \"1\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"www.httpwatch.com\",\n" +
-                "    \"size\": \"66\",\n" +
-                "    \"networkType\": \"1\",\n" +
-                "    \"reqCount\": \"2\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"alissl.ucdl.pp.uc.cn\",\n" +
-                "    \"size\": \"7867\",\n" +
-                "    \"networkType\": \"2\",\n" +
-                "    \"reqCount\": \"1\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"alissl.ucdl.pp.uc.cn\",\n" +
-                "    \"size\": \"7867\",\n" +
-                "    \"networkType\": \"1\",\n" +
-                "    \"reqCount\": \"1\"\n" +
-                "  }\n" +
-                "]";
-
-        UploadData[] uploadData = new Gson().fromJson(str, UploadData[].class);
-
-
-        ObservableList<UploadDataCompat> items = getItems(uploadData);
-
-
-        table.setItems(items);
-
-        TableColumn[] generate = generate(UploadData.class);
-        table.getColumns().addAll(generate);
+        TableView table = tableView("/Users/relish/IdeaProjects/MarkVis/src/main/resources/json.json");
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
@@ -177,12 +47,42 @@ public class TableViewSample extends Application {
         stage.show();
     }
 
+    private static TableView tableView(@NotNull String path) {
+        TableView<Map<String, String>> table = new TableView<Map<String, String>>();
+        List<Map<String, String>> maps = Util.jsonArrToList(path);
+        ObservableList<Map<String, String>> items = FXCollections.observableArrayList();
+        for (Map<String, String> map : maps) {
+            //noinspection UseBulkOperation
+            items.add(map);
+        }
+        table.setItems(items);
+        table.setMinWidth(876);
+
+        TableColumn[] generate = generate(maps.get(0).keySet());
+        //noinspection unchecked
+        table.getColumns().addAll(generate);
+        return table;
+    }
+
     private static TableColumn[] generate(Class<?> clazz) {
         Field[] fields = clazz.getDeclaredFields();
         TableColumn[] tableColumns = new TableColumn[fields.length];
         for (int i = 0; i < fields.length; i++) {
             tableColumns[i] = new TableColumn(fields[i].getName());
+            //noinspection unchecked
             tableColumns[i].setCellValueFactory(new PropertyValueFactory<UploadDataCompat, SimpleObjectProperty>(fields[i].getName()));
+        }
+        return tableColumns;
+    }
+
+    private static TableColumn[] generate(Set<String> set) {
+        TableColumn[] tableColumns = new TableColumn[set.size()];
+        int i = 0;
+        for (String key : set) {
+            int index = i++;
+            tableColumns[index] = new TableColumn(key);
+            //noinspection unchecked
+            tableColumns[index].setCellValueFactory(new PropertyValueFactory<UploadDataCompat, SimpleObjectProperty>(key));
         }
         return tableColumns;
     }
