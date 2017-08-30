@@ -32,7 +32,7 @@ public class TableViewSample extends Application {
     public void start(Stage stage) {
         Scene scene = new Scene(new Group());
         stage.setTitle("Table View Sample");
-        stage.setWidth(800);
+        stage.setWidth(876);
         stage.setHeight(500);
 
         String str = Util.readJSONFromFile(getClass().getResource("/json.json").getPath());
@@ -47,7 +47,7 @@ public class TableViewSample extends Application {
 
         TableColumn[] generate = generate(Bean.class);
         table.getColumns().addAll(generate);
-        table.setMinWidth(800);
+        table.setMinWidth(876);
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
