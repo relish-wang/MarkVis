@@ -20,7 +20,7 @@ import java.io.Serializable;
  * @author Relish Wang
  * @since 2017/08/29
  */
-final class UploadData implements Serializable {
+final class Bean implements Serializable {
 
     /**
      * App启动次数

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class TableViewSample extends Application {
+public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -33,11 +33,6 @@ public class TableViewSample extends Application {
 
         TableView table = tableView(getClass().getResource("/json.json").getPath());
 
-//        final VBox vbox = new VBox();
-//        vbox.setSpacing(5);
-//        vbox.setPadding(new Insets(10, 0, 0, 10));
-//        vbox.getChildren().addAll(table);
-
         ((Group) scene.getRoot()).getChildren().addAll(table);
 
         stage.setScene(scene);
@@ -49,7 +44,8 @@ public class TableViewSample extends Application {
         List<Map<String, String>> maps = Util.jsonArrToList(path);
         ObservableList<Map<String, String>> items = FXCollections.observableArrayList();
 
-        ClassGenerator.getInstance().generate(maps.get(0));
+        @SuppressWarnings("AccessStaticViaInstance")
+        Class<?> clazz = DynamicClassGenerator.getInstance().generate(maps.get(0)); //Bean
 
         for (Map<String, String> map : maps) {
             //noinspection UseBulkOperation
@@ -71,20 +67,20 @@ public class TableViewSample extends Application {
             int index = i++;
             tableColumns[index] = new TableColumn(key);
             //noinspection unchecked
-            tableColumns[index].setCellValueFactory(new PropertyValueFactory<UploadDataCompat, SimpleObjectProperty>(key));
+            tableColumns[index].setCellValueFactory(new PropertyValueFactory<BeanCompat, SimpleObjectProperty>(key));
         }
         return tableColumns;
     }
 
-    private static List<UploadDataCompat> compat(UploadData[] uploadData) {
-        List<UploadDataCompat> uploadDataCompats = new ArrayList<UploadDataCompat>();
-        for (UploadData uploadDatum : uploadData) {
-            uploadDataCompats.add(new UploadDataCompat(uploadDatum));
+    private static List<BeanCompat> compat(Bean[] uploadData) {
+        List<BeanCompat> beanCompats = new ArrayList<BeanCompat>();
+        for (Bean uploadDatum : uploadData) {
+            beanCompats.add(new BeanCompat(uploadDatum));
         }
-        return uploadDataCompats;
+        return beanCompats;
     }
 
-    private static ObservableList<UploadDataCompat> getItems(UploadData[] uploadData) {
-        return new ObservableListWrapper<UploadDataCompat>(compat(uploadData));
+    private static ObservableList<BeanCompat> getItems(Bean[] uploadData) {
+        return new ObservableListWrapper<BeanCompat>(compat(uploadData));
     }
 }

@@ -24,7 +24,7 @@ final class Util {
         return DATE_FORMAT.format(new Date(time));
     }
 
-    static JSONArray readJSONFromFile(@NotNull String path) {
+    static String readStringFromFile(@NotNull String path) {
         File file = new File(path);
         if (!file.exists() || file.isDirectory()) return null;
 
@@ -33,7 +33,7 @@ final class Util {
             is = new FileInputStream(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
         byte[] buffer;
         try {
@@ -46,7 +46,7 @@ final class Util {
             buffer = new byte[available];
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
         try {
             //noinspection ResultOfMethodCallIgnored
@@ -54,7 +54,13 @@ final class Util {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new JSONArray(new String(buffer));
+        return new String(buffer);
+    }
+
+    static JSONArray readJSONFromFile(@NotNull String path) {
+        String stringFromFile = readStringFromFile(path);
+        if (stringFromFile == null || stringFromFile.equals("")) return new JSONArray("[]");
+        return new JSONArray(stringFromFile);
     }
 
     static List<Map<String, String>> jsonArrToList(@NotNull String path) {
