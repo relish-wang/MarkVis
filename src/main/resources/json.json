@@ -1,0 +1,65 @@
+[
+  {
+    "launchCount": "2",
+    "startTime": "1504081204814",
+    "endTime": "0",
+    "filter": "*",
+    "size": "0",
+    "networkType": "0",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "2",
+    "startTime": "1504081204814",
+    "endTime": "0",
+    "filter": "*.*",
+    "size": "0",
+    "networkType": "2",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "2",
+    "startTime": "1504081204814",
+    "endTime": "0",
+    "filter": "*.*",
+    "size": "0",
+    "networkType": "1",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "2",
+    "startTime": "1504081204814",
+    "endTime": "0",
+    "filter": "*.souche.com",
+    "size": "0",
+    "networkType": "2",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "2",
+    "startTime": "1504081204814",
+    "endTime": "0",
+    "filter": "*.souche.com",
+    "size": "0",
+    "networkType": "1",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "2",
+    "startTime": "1504081204814",
+    "endTime": "0",
+    "filter": "*.upload.souche.com",
+    "size": "0",
+    "networkType": "2",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "2",
+    "startTime": "1504081204814",
+    "endTime": "0",
+    "filter": "*.upload.souche.com",
+    "size": "0",
+    "networkType": "1",
+    "reqCount": "0"
+  }
+]

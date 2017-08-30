@@ -2,8 +2,6 @@ package wang.relish.markvis;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 用于上传的统计结果的数据结构
@@ -22,7 +20,7 @@ import java.util.List;
  * @author Relish Wang
  * @since 2017/08/29
  */
-final class UploadData implements Serializable {
+final class Bean implements Serializable {
 
     /**
      * App启动次数

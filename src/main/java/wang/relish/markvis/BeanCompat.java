@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author relish
  * @since 2017/08/29
  */
-public class UploadDataCompat {
+public class BeanCompat {
 
     /**
      * App启动次数
@@ -41,14 +41,14 @@ public class UploadDataCompat {
      */
     private SimpleLongProperty reqCount;
 
-    public UploadDataCompat(UploadData d) {
+    public BeanCompat(Bean d) {
         this(d.getLaunchCount(), d.getStartTime(), d.getEndTime(), d.getFilter(), d.getNetworkType(), d.getSize(), d.getReqCount());
     }
 
-    public UploadDataCompat(long launchCount, long startTime, long endTime, String filter, int networkType, long size, long reqCount) {
+    public BeanCompat(long launchCount, long startTime, long endTime, String filter, int networkType, long size, long reqCount) {
         this.launchCount = new SimpleLongProperty(launchCount);
-        this.startTime = new SimpleStringProperty(TimeUtil.longToString(startTime));
-        this.endTime = new SimpleStringProperty(TimeUtil.longToString(endTime));
+        this.startTime = new SimpleStringProperty(Util.longToString(startTime));
+        this.endTime = new SimpleStringProperty(Util.longToString(endTime));
         this.filter = new SimpleStringProperty(filter);
         this.networkType = new SimpleStringProperty(networkType(networkType));
         this.size = new SimpleLongProperty(size);
@@ -76,7 +76,7 @@ public class UploadDataCompat {
     }
 
     public void setEndTime(long endTime) {
-        this.endTime = new SimpleStringProperty(TimeUtil.longToString(endTime));
+        this.endTime = new SimpleStringProperty(Util.longToString(endTime));
     }
 
     public String getFilter() {

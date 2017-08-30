@@ -21,8 +21,8 @@ import java.util.List;
 
 public class TableViewSample extends Application {
 
-    private final TableView<UploadDataCompat> table = new TableView<UploadDataCompat>();
-    private final ObservableList<UploadDataCompat> data = FXCollections.emptyObservableList();
+    private final TableView<BeanCompat> table = new TableView<BeanCompat>();
+    private final ObservableList<BeanCompat> data = FXCollections.emptyObservableList();
 
     public static void main(String[] args) {
         launch(args);
@@ -35,136 +35,19 @@ public class TableViewSample extends Application {
         stage.setWidth(800);
         stage.setHeight(500);
 
-        String str = "[\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*\",\n" +
-                "    \"size\": \"16988\",\n" +
-                "    \"networkType\": \"0\",\n" +
-                "    \"reqCount\": \"32\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*.*\",\n" +
-                "    \"size\": \"7923\",\n" +
-                "    \"networkType\": \"2\",\n" +
-                "    \"reqCount\": \"13\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*.*\",\n" +
-                "    \"size\": \"7969\",\n" +
-                "    \"networkType\": \"1\",\n" +
-                "    \"reqCount\": \"19\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*.souche.com\",\n" +
-                "    \"size\": \"4\",\n" +
-                "    \"networkType\": \"2\",\n" +
-                "    \"reqCount\": \"3\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*.souche.com\",\n" +
-                "    \"size\": \"0\",\n" +
-                "    \"networkType\": \"1\",\n" +
-                "    \"reqCount\": \"0\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*.upload.souche.com\",\n" +
-                "    \"size\": \"0\",\n" +
-                "    \"networkType\": \"2\",\n" +
-                "    \"reqCount\": \"0\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"*.upload.souche.com\",\n" +
-                "    \"size\": \"0\",\n" +
-                "    \"networkType\": \"1\",\n" +
-                "    \"reqCount\": \"0\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"qxu1606440290.my3w.com\",\n" +
-                "    \"size\": \"1\",\n" +
-                "    \"networkType\": \"2\",\n" +
-                "    \"reqCount\": \"2\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"qxu1606440290.my3w.com\",\n" +
-                "    \"size\": \"3\",\n" +
-                "    \"networkType\": \"1\",\n" +
-                "    \"reqCount\": \"4\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"www.httpwatch.com\",\n" +
-                "    \"size\": \"33\",\n" +
-                "    \"networkType\": \"2\",\n" +
-                "    \"reqCount\": \"1\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"www.httpwatch.com\",\n" +
-                "    \"size\": \"66\",\n" +
-                "    \"networkType\": \"1\",\n" +
-                "    \"reqCount\": \"2\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"alissl.ucdl.pp.uc.cn\",\n" +
-                "    \"size\": \"7867\",\n" +
-                "    \"networkType\": \"2\",\n" +
-                "    \"reqCount\": \"1\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"launchCount\": \"1\",\n" +
-                "    \"startTime\": \"1503984545114\",\n" +
-                "    \"endTime\": \"1503986652918\",\n" +
-                "    \"filter\": \"alissl.ucdl.pp.uc.cn\",\n" +
-                "    \"size\": \"7867\",\n" +
-                "    \"networkType\": \"1\",\n" +
-                "    \"reqCount\": \"1\"\n" +
-                "  }\n" +
-                "]";
+        String str = Util.readJSONFromFile(getClass().getResource("/json.json").getPath());
 
-        UploadData[] uploadData = new Gson().fromJson(str, UploadData[].class);
+        Bean[] uploadData = new Gson().fromJson(str, Bean[].class);
 
 
-        ObservableList<UploadDataCompat> items = getItems(uploadData);
+        ObservableList<BeanCompat> items = getItems(uploadData);
 
 
         table.setItems(items);
 
-        TableColumn[] generate = generate(UploadData.class);
+        TableColumn[] generate = generate(Bean.class);
         table.getColumns().addAll(generate);
+        table.setMinWidth(800);
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
@@ -182,20 +65,20 @@ public class TableViewSample extends Application {
         TableColumn[] tableColumns = new TableColumn[fields.length];
         for (int i = 0; i < fields.length; i++) {
             tableColumns[i] = new TableColumn(fields[i].getName());
-            tableColumns[i].setCellValueFactory(new PropertyValueFactory<UploadDataCompat, SimpleObjectProperty>(fields[i].getName()));
+            tableColumns[i].setCellValueFactory(new PropertyValueFactory<BeanCompat, SimpleObjectProperty>(fields[i].getName()));
         }
         return tableColumns;
     }
 
-    private static List<UploadDataCompat> compat(UploadData[] uploadData) {
-        List<UploadDataCompat> uploadDataCompats = new ArrayList<UploadDataCompat>();
-        for (UploadData uploadDatum : uploadData) {
-            uploadDataCompats.add(new UploadDataCompat(uploadDatum));
+    private static List<BeanCompat> compat(Bean[] uploadData) {
+        List<BeanCompat> beanCompats = new ArrayList<BeanCompat>();
+        for (Bean uploadDatum : uploadData) {
+            beanCompats.add(new BeanCompat(uploadDatum));
         }
-        return uploadDataCompats;
+        return beanCompats;
     }
 
-    private static ObservableList<UploadDataCompat> getItems(UploadData[] uploadData) {
-        return new ObservableListWrapper<UploadDataCompat>(compat(uploadData));
+    private static ObservableList<BeanCompat> getItems(Bean[] uploadData) {
+        return new ObservableListWrapper<BeanCompat>(compat(uploadData));
     }
 }
