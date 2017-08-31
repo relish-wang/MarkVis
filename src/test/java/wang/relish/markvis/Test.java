@@ -39,10 +39,17 @@ public class Test {
 
     @org.junit.Test
     public void sd() throws IllegalAccessException, InstantiationException {
-        Class<?> clazz = String.class;
-        Class<?> arrClazz = String[].class;
 
-        System.out.println(arrClazz.getSimpleName());
+        Class<?> cla = String.class;
+        Class<?> arrCla = String[].class;
+
+
+        System.out.println(arrCla.isArray());
+
+        Class<?> componentType = arrCla.getComponentType();
+
+        System.out.println(componentType.getSimpleName());
+        System.out.println(arrCla.getSimpleName());
 //        System.out.println(os.getClass().getSimpleName());
 //        System.out.println(os.getClass()==arrClazz);
     }
