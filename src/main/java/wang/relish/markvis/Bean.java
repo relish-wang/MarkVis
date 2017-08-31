@@ -1,112 +1,73 @@
 package wang.relish.markvis;
 
+public class Bean {
+  private String launchCount;
 
-import java.io.Serializable;
+  private String filter;
 
-/**
- * 用于上传的统计结果的数据结构
- * <p>
- * | launchCount |      startTime      |       endTime       |        filter        | networkType |  size(KB) |
- * | :---------: | :-----------------: | :-----------------: | :------------------: | :---------: | :-------: |
- * |     13      |    1501741909582    |     501742298025    |          \*          |      0      |     89    |
- * |     13      |    1501741909582    |     501742298025    |          \*          |      0      |     89    |
- * |     13      |    1501741909582    |     501742298025    |        \*.\*         |      1      |     88    |
- * |     13      |    1501741909582    |     501742298025    |        \*.\*         |      2      |      8    |
- * |     13      |    1501741909582    |     501742298025    |    \*.souche.com     |      1      |     51    |
- * |     13      |    1501741909582    |     501742298025    |    \*.souche.com     |      2      |      5    |
- * |     13      |    1501741909582    |     501742298025    | \*.update.souche.com |      1      |     25    |
- * |     13      |    1501741909582    |     501742298025    | \*.update.souche.com |      2      |      2    |
- *
- * @author Relish Wang
- * @since 2017/08/29
- */
-final class Bean implements Serializable {
+  private String reqCount;
 
-    /**
-     * App启动次数
-     */
-    private long launchCount;
-    /**
-     * 此次统计开始时间
-     */
-    private long startTime;
-    /**
-     * 此次统计结束时间
-     */
-    private long endTime;
-    /**
-     * url过滤规则
-     */
-    private String filter;
-    /**
-     * 网络类型( 0 | 1 | 2)
-     * 0: 总共
-     * 1: Wi-Fi
-     * 2: Cellular
-     */
-    private int networkType;
-    /**
-     * 流量大小（单位：KByte）
-     */
-    private long size;
-    /**
-     * (对应filter的)访问次数
-     */
-    private long reqCount;
+  private String size;
 
-    public long getLaunchCount() {
-        return launchCount;
-    }
+  private String startTime;
 
-    public void setLaunchCount(long launchCount) {
-        this.launchCount = launchCount;
-    }
+  private String endTime;
 
-    public long getStartTime() {
-        return startTime;
-    }
+  private String networkType;
 
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
-    }
+  public String getLaunchCount() {
+    return this.launchCount;
+  }
 
-    public long getEndTime() {
-        return endTime;
-    }
+  public void setLaunchCount() {
+    this.launchCount = launchCount;
+  }
 
-    public void setEndTime(long endTime) {
-        this.endTime = endTime;
-    }
+  public String getFilter() {
+    return this.filter;
+  }
 
-    public String getFilter() {
-        return filter;
-    }
+  public void setFilter() {
+    this.filter = filter;
+  }
 
-    public void setFilter(String filter) {
-        this.filter = filter;
-    }
+  public String getReqCount() {
+    return this.reqCount;
+  }
 
-    public int getNetworkType() {
-        return networkType;
-    }
+  public void setReqCount() {
+    this.reqCount = reqCount;
+  }
 
-    public void setNetworkType(int networkType) {
-        this.networkType = networkType;
-    }
+  public String getSize() {
+    return this.size;
+  }
 
-    public long getSize() {
-        return size;
-    }
+  public void setSize() {
+    this.size = size;
+  }
 
-    public void setSize(long size) {
-        this.size = size;
-    }
+  public String getStartTime() {
+    return this.startTime;
+  }
 
-    public long getReqCount() {
-        return reqCount;
-    }
+  public void setStartTime() {
+    this.startTime = startTime;
+  }
 
-    public void setReqCount(long reqCount) {
-        this.reqCount = reqCount;
-    }
+  public String getEndTime() {
+    return this.endTime;
+  }
+
+  public void setEndTime() {
+    this.endTime = endTime;
+  }
+
+  public String getNetworkType() {
+    return this.networkType;
+  }
+
+  public void setNetworkType() {
+    this.networkType = networkType;
+  }
 }

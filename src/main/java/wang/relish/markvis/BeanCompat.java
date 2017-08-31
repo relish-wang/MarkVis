@@ -1,127 +1,86 @@
+
 package wang.relish.markvis;
 
-import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-/**
- * @author relish
- * @since 2017/08/29
- */
 public class BeanCompat {
+  private SimpleStringProperty launchCount;
 
-    /**
-     * App启动次数
-     */
-    private SimpleLongProperty launchCount;
-    /**
-     * 此次统计开始时间
-     */
-    private SimpleStringProperty startTime;
-    /**
-     * 此次统计结束时间
-     */
-    private SimpleStringProperty endTime;
-    /**
-     * url过滤规则
-     */
-    private SimpleStringProperty filter;
-    /**
-     * 网络类型( 0 | 1 | 2)
-     * 0: 总共
-     * 1: Wi-Fi
-     * 2: Cellular
-     */
-    private SimpleStringProperty networkType;
-    /**
-     * 流量大小（单位：KByte）
-     */
-    private SimpleLongProperty size;
-    /**
-     * (对应filter的)访问次数
-     */
-    private SimpleLongProperty reqCount;
+  private SimpleStringProperty filter;
 
-    public BeanCompat(Bean d) {
-        this(d.getLaunchCount(), d.getStartTime(), d.getEndTime(), d.getFilter(), d.getNetworkType(), d.getSize(), d.getReqCount());
-    }
+  private SimpleStringProperty reqCount;
 
-    public BeanCompat(long launchCount, long startTime, long endTime, String filter, int networkType, long size, long reqCount) {
-        this.launchCount = new SimpleLongProperty(launchCount);
-        this.startTime = new SimpleStringProperty(Util.longToString(startTime));
-        this.endTime = new SimpleStringProperty(Util.longToString(endTime));
-        this.filter = new SimpleStringProperty(filter);
-        this.networkType = new SimpleStringProperty(networkType(networkType));
-        this.size = new SimpleLongProperty(size);
-        this.reqCount = new SimpleLongProperty(reqCount);
-    }
+  private SimpleStringProperty size;
 
-    public long getLaunchCount() {
-        return launchCount.get();
-    }
+  private SimpleStringProperty startTime;
 
-    public void setLaunchCount(long launchCount) {
-        this.launchCount = new SimpleLongProperty(launchCount);
-    }
+  private SimpleStringProperty endTime;
 
-    public String getStartTime() {
-        return startTime.get();
-    }
+  private SimpleStringProperty networkType;
 
-    public void setStartTime(String startTime) {
-        this.startTime = new SimpleStringProperty(startTime);
-    }
+  public BeanCompat(Bean bean) {
+    this.launchCount = new SimpleStringProperty(bean.getLaunchCount() + "");
+    this.filter = new SimpleStringProperty(bean.getFilter() + "");
+    this.reqCount = new SimpleStringProperty(bean.getReqCount() + "");
+    this.size = new SimpleStringProperty(bean.getSize() + "");
+    this.startTime = new SimpleStringProperty(bean.getStartTime() + "");
+    this.endTime = new SimpleStringProperty(bean.getEndTime() + "");
+    this.networkType = new SimpleStringProperty(bean.getNetworkType() + "");
+  }
 
-    public String getEndTime() {
-        return endTime.get();
-    }
+  public String getLaunchCount() {
+    return this.launchCount.get();
+  }
 
-    public void setEndTime(long endTime) {
-        this.endTime = new SimpleStringProperty(Util.longToString(endTime));
-    }
+  public void setLaunchCount(String launchCount) {
+    this.launchCount = new SimpleStringProperty(launchCount);
+  }
 
-    public String getFilter() {
-        return filter.get();
-    }
+  public String getFilter() {
+    return this.filter.get();
+  }
 
-    public void setFilter(String filter) {
-        this.filter = new SimpleStringProperty(filter);
-    }
+  public void setFilter(String filter) {
+    this.filter = new SimpleStringProperty(filter);
+  }
 
-    public String getNetworkType() {
-        return networkType.get();
-    }
+  public String getReqCount() {
+    return this.reqCount.get();
+  }
 
-    public void setNetworkType(int networkType) {
-        this.networkType = new SimpleStringProperty(networkType(networkType));
-    }
+  public void setReqCount(String reqCount) {
+    this.reqCount = new SimpleStringProperty(reqCount);
+  }
 
-    public long getSize() {
-        return size.get();
-    }
+  public String getSize() {
+    return this.size.get();
+  }
 
-    public void setSize(long size) {
-        this.size = new SimpleLongProperty(size);
-    }
+  public void setSize(String size) {
+    this.size = new SimpleStringProperty(size);
+  }
 
-    public long getReqCount() {
-        return reqCount.get();
-    }
+  public String getStartTime() {
+    return this.startTime.get();
+  }
 
-    public void setReqCount(long reqCount) {
-        this.reqCount = new SimpleLongProperty(reqCount);
-    }
+  public void setStartTime(String startTime) {
+    this.startTime = new SimpleStringProperty(startTime);
+  }
 
+  public String getEndTime() {
+    return this.endTime.get();
+  }
 
-    private static String networkType(int type) {
-        switch (type) {
-            case 0:
-                return "SUM";
-            case 1:
-                return "WIFI";
-            case 2:
-                return "Cellular";
-            default:
-                return type + "";
-        }
-    }
+  public void setEndTime(String endTime) {
+    this.endTime = new SimpleStringProperty(endTime);
+  }
+
+  public String getNetworkType() {
+    return this.networkType.get();
+  }
+
+  public void setNetworkType(String networkType) {
+    this.networkType = new SimpleStringProperty(networkType);
+  }
 }
