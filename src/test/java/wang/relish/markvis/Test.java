@@ -9,19 +9,19 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Test {
 
     static AtomicLong aLong = new AtomicLong(0);
-    static long count = 0;
+    static volatile long count = 0L;
 
     @org.junit.Test
     public void test() throws InterruptedException {
         Thread t1 = new Thread(() -> {
             for (int i = 0; i < 1000; i++) {
-                count++;
+                f();
                 aLong.incrementAndGet();
             }
         });
         Thread t2 = new Thread(() -> {
             for (int i = 0; i < 1000; i++) {
-                count++;
+                f();
                 aLong.incrementAndGet();
             }
         });
@@ -31,5 +31,19 @@ public class Test {
         Thread.sleep(3000);
         System.out.println("count = " + count);
         System.out.println("AtomicCount = " + aLong.get());
+    }
+
+    synchronized void f() {
+        count++;
+    }
+
+    @org.junit.Test
+    public void sd() throws IllegalAccessException, InstantiationException {
+        Class<?> clazz = String.class;
+        Class<?> arrClazz = String[].class;
+
+        System.out.println(arrClazz.getSimpleName());
+//        System.out.println(os.getClass().getSimpleName());
+//        System.out.println(os.getClass()==arrClazz);
     }
 }

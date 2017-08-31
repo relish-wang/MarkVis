@@ -1,16 +1,24 @@
 package wang.relish.markvis;
 
+import com.google.gson.Gson;
 import com.itranswarp.compiler.JavaStringCompiler;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import com.sun.istack.internal.NotNull;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -149,6 +157,100 @@ public class DynamicClassGenerator {
             e.printStackTrace();
         }
         return sb.toString();
+    }
+
+    public static TableView tableView(String json, Class<?> clazz, Class<?> classCompat) {
+
+        Object[] uploadData = new Gson().fromJson(json, (Type) clazz);
+
+//        ObservableList<BeanCompat> items = getItems(uploadData);
+        TableView<BeanCompat> table = new TableView<BeanCompat>();
+//        table.setItems(items);
+        TableColumn[] generate = generateTableColumn(clazz);
+        table.getColumns().addAll(generate);
+        table.setMinWidth(876);
+
+        return table;
+    }
+
+    private static <Compat> TableColumn[] generateTableColumn(Class<?> clazz) {
+        Field[] fields = clazz.getDeclaredFields();
+        TableColumn[] tableColumns = new TableColumn[fields.length];
+        for (int i = 0; i < fields.length; i++) {
+            tableColumns[i] = new TableColumn(fields[i].getName());
+            tableColumns[i].setCellValueFactory(new PropertyValueFactory<Compat, SimpleObjectProperty>(fields[i].getName()));
+        }
+        return tableColumns;
+    }
+
+    /*
+        private static List<BeanCompat> compat(Bean[] uploadData) {
+            List<BeanCompat> beanCompats = new ArrayList<BeanCompat>();
+            for (Bean uploadDatum : uploadData) {
+                beanCompats.add(new BeanCompat(uploadDatum));
+            }
+            return beanCompats;
+        }
+
+        private static ObservableList<BeanCompat> getItems(Bean[] uploadData) {
+            return new ObservableListWrapper<BeanCompat>(compat(uploadData));
+        }
+     */
+    private static Class<?> generateTempClass(Class<?> clazz, Class<?> clazzCompat) {
+        String packageName = clazz.getPackage().getName();
+        String className = clazz.getSimpleName();
+        String classCompatName = clazzCompat.getSimpleName();
+        /*
+         * private static List compat(Object[] been) {
+         *     List<BeanCompat> data = new ArrayList<BeanCompat>();
+         *     for (Bean datum : been) {
+         *         data.add(new BeanCompat(datum));
+         *     }
+         *     return data;
+         * }
+         */
+        String paramName = "been";
+        String listName = "data";
+        String itemName = "datum";
+        String compatMethodName = "compat";
+        MethodSpec compatMethod = MethodSpec.methodBuilder(compatMethodName)
+                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .returns(List.class)
+                .addParameter(Object[].class, paramName)
+                .addStatement("List<$N> $N = new ArrayList<$N>", classCompatName, listName, classCompatName)
+                .beginControlFlow("for ($N $N : $N)", className, itemName, paramName)
+                .addStatement("$N.add(new $N($N))", listName, classCompatName, itemName)
+                .endControlFlow()
+                .addStatement("return $N", listName)
+                .build();
+        /*
+         * private static ObservableList getItems(Object[] been) {
+         *     return new ObservableListWrapper<BeanCompat>(compat(been));
+         * }
+         */
+        MethodSpec getItemsMethod = MethodSpec.methodBuilder("getItems")
+                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .returns(ObservableList.class)
+                .addParameter(Object[].class, paramName)
+                .addStatement("return new ObservableListWrapper<$N>($N($N))", classCompatName, compatMethodName, paramName)
+                .build();
+
+
+        String resultClassName = "Temp";
+        TypeSpec typeSpec = TypeSpec.classBuilder(resultClassName)
+                .addMethod(compatMethod)
+                .addMethod(getItemsMethod)
+                .build();
+
+        JavaFile javaFile = JavaFile.builder(packageName, typeSpec).build();
+
+        StringBuilder sb = new StringBuilder();
+        try {
+            javaFile.writeTo(sb);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return compiler(sb.toString(), resultClassName);
     }
 
     /**
