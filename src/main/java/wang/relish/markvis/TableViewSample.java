@@ -4,15 +4,12 @@ import com.google.gson.Gson;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.application.Application;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.lang.reflect.Field;
@@ -20,9 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TableViewSample extends Application {
-
-    private final TableView<BeanCompat> table = new TableView<BeanCompat>();
-    private final ObservableList<BeanCompat> data = FXCollections.emptyObservableList();
 
     public static void main(String[] args) {
         launch(args);
@@ -37,27 +31,25 @@ public class TableViewSample extends Application {
 
         String str = Util.readJSONFromFile(getClass().getResource("/json.json").getPath());
 
-        Bean[] uploadData = new Gson().fromJson(str, Bean[].class);
+        TableView table = tableView(str);
 
+        ((Group) scene.getRoot()).getChildren().addAll(table);
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private static TableView tableView(String jsonStr) {
+        Bean[] uploadData = new Gson().fromJson(jsonStr, Bean[].class);
 
         ObservableList<BeanCompat> items = getItems(uploadData);
-
-
+        TableView<BeanCompat> table = new TableView<BeanCompat>();
         table.setItems(items);
-
         TableColumn[] generate = generate(Bean.class);
         table.getColumns().addAll(generate);
         table.setMinWidth(876);
 
-        final VBox vbox = new VBox();
-        vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(table);
-
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
-
-        stage.setScene(scene);
-        stage.show();
+        return table;
     }
 
     private static TableColumn[] generate(Class<?> clazz) {
