@@ -45,7 +45,8 @@ public class Main extends Application {
         ObservableList<Map<String, String>> items = FXCollections.observableArrayList();
 
         @SuppressWarnings("AccessStaticViaInstance")
-        Class<?> clazz = DynamicClassGenerator.getInstance().generate(maps.get(0)); //Bean
+        Class<?> beanClazz = DynamicClassGenerator.generate(maps.get(0)); //Bean
+        Class<?> beanCompatClazz = DynamicClassGenerator.generateCompat(beanClazz);
 
         for (Map<String, String> map : maps) {
             //noinspection UseBulkOperation
