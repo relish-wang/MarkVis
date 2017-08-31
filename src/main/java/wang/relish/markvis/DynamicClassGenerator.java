@@ -1,7 +1,6 @@
 package wang.relish.markvis;
 
 import com.google.gson.Gson;
-import com.itranswarp.compiler.JavaStringCompiler;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -14,13 +13,16 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import wang.relish.markvis.complier.JavaStringCompiler;
 
 import javax.lang.model.element.Modifier;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,27 +44,36 @@ public class DynamicClassGenerator {
         return instance;
     }
 
-    public static Class<?> generate(Map<String, String> map) {
+    public static String generate(Map<String, String> map) {
         String className = "Bean";
         String packageName = DynamicClassGenerator.class.getPackage().getName();
 
         String javaFileString = generateJavaFileString(map, className, packageName);//生成文件
         System.out.println(javaFileString);
 
-        return compiler(javaFileString, className);
+        return javaFileString;
     }
 
-    public static Class<?> generateCompat(Class<?> beanClass) {
+    public static String generateCompat(Class<?> beanClass, String beanSourceCode) {
         String compatClassName = beanClass.getSimpleName() + "Compat";
         String javaFileString = generateBeanCompatString(beanClass, compatClassName);
         System.out.println(javaFileString);
-        return compiler(javaFileString, compatClassName);
+        return javaFileString;
     }
 
-    private static Class<?> compiler(String javaString, String className) {
+    /**
+     * 编译java文件
+     *
+     * @param javaString the source code of the java file: Bean
+     * @param className  the simple class name of the java class
+     * @return 这个Java文件编译出来的类
+     */
+    private static Class<?> compiler(String className, String javaString) {
         String fileName = className + ".java";
         String path = DynamicClassGenerator.class.getPackage().getName() + "." + className;
-        JavaStringCompiler compiler = new JavaStringCompiler();
+        JavaStringCompiler compiler = new JavaStringCompiler.Builder()
+                .add(javaString, className)
+                .build();
         Map<String, byte[]> results;
         try {
             results = compiler.compile(fileName, javaString);
@@ -72,7 +83,7 @@ public class DynamicClassGenerator {
         }
         Class<?> clazz;
         try {
-            clazz = compiler.loadClass(path, results);
+            clazz = JavaStringCompiler.loadClass(path, results);
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
             return Object.class;
@@ -80,6 +91,35 @@ public class DynamicClassGenerator {
         return clazz;
     }
 
+    /**
+     * 编译java文件
+     *
+     * @param map key: javaString the source code of the java file
+     *            value:  the simple class name of the java class
+     * @return 这些Java文件编译出来的map&lt;类名,二进制数据$gt;
+     */
+    private static Map<String, byte[]> compiler(Map<String, String> map) {
+        JavaStringCompiler.Builder builder = new JavaStringCompiler.Builder();
+        for (String key : map.keySet()) {
+            String fileName = key + ".java";
+            builder.add(fileName, map.get(key));
+        }
+        try {
+            return builder.build().compile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new HashMap<>();
+    }
+
+    /**
+     * 根据map生成实体类
+     *
+     * @param map         用于生成这个java实体类的map
+     * @param className   这个java实体类的类名: Bean
+     * @param packageName 这个java实体类的包名: wang.relish.markvis
+     * @return 实体类的java文件的源码的String
+     */
     private static String generateJavaFileString(Map<String, String> map, @NotNull String className, @NotNull String packageName) {
         TypeSpec.Builder builder = TypeSpec.classBuilder(className);
         for (String key : map.keySet()) {
@@ -98,24 +138,32 @@ public class DynamicClassGenerator {
             MethodSpec methodSet = MethodSpec.methodBuilder("set" + upperCamelCaseKey)
                     .returns(void.class)
                     .addModifiers(Modifier.PUBLIC)
-                    .addStatement("this.$N = $N;", key, key)
+                    .addStatement("this.$N = $N", key, key)
                     .build();
             builder.addField(fieldSpec)
                     .addMethod(methodGet)
                     .addMethod(methodSet);
         }
-        TypeSpec typeSpec = builder.addModifiers(Modifier.PUBLIC).build();
+        TypeSpec typeSpec = builder.build();
         JavaFile javaFile = JavaFile.builder(packageName, typeSpec)
                 .build();
         StringBuilder sb = new StringBuilder();
         try {
             javaFile.writeTo(sb);
+            javaFile.writeTo(new File(className + ".java"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return sb.toString();
     }
 
+    /**
+     * 根据java实体类
+     *
+     * @param clazz
+     * @param compatClassName
+     * @return
+     */
     private static String generateBeanCompatString(Class<?> clazz, String compatClassName) {
         String packageName = clazz.getPackage().getName();
         String className = clazz.getSimpleName();
@@ -152,7 +200,6 @@ public class DynamicClassGenerator {
                     .addMethod(methodSet);
         }
         TypeSpec typeSpec = builder
-                .addModifiers(Modifier.PUBLIC)
                 .addMethod(constructorBuilder.build()).build();
         JavaFile javaFile = JavaFile.builder(packageName, typeSpec).build();
         StringBuilder sb = new StringBuilder();
@@ -167,26 +214,64 @@ public class DynamicClassGenerator {
     public static TableView tableView(String path) {
         String json = Util.readStringFromFile(path);
         List<Map<String, String>> maps = Util.jsonArrToList(path);
-        @SuppressWarnings("AccessStaticViaInstance")
-        Class<?> beanClazz = DynamicClassGenerator.generate(maps.get(0)); //Bean
-        Class<?> beanCompatClazz = DynamicClassGenerator.generateCompat(beanClazz);
-        Class<?> tempClass = generateTempClass(beanClazz, beanCompatClazz);
+
+        String beanClassName = "Bean";
+        String beanFileName = beanClassName + ".java";
+
+
+        String beanSourceCode = DynamicClassGenerator.generate(maps.get(0)); //Bean
+        Class<?> bean = compiler(beanClassName, beanSourceCode);
+        String compatSourceCode = DynamicClassGenerator.generateCompat(bean, beanSourceCode);
+
+
+        String beanCompatClassName = beanClassName + "Compat";
+        String beanCompatFileName = beanCompatClassName + ".java";
+
+        Map<String, String> map = new HashMap<>();
+        map.put(beanFileName, beanSourceCode);
+        map.put(beanCompatFileName, compatSourceCode);
+
+        Map<String, byte[]> binaryCode = compiler(map);
+        Class<?> beanCompat = null;
+        try {
+            beanCompat = JavaStringCompiler.loadClass(bean.getPackage().getName() + "." + beanCompatClassName, binaryCode);
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
+
+        String tempClassName = "Temp";
+        String tempFileName = tempClassName + ".java";
+
+        String tempSourceCode = generateTempClass(bean, beanCompat);
+        map.put(tempFileName, tempSourceCode);
+
+        Map<String, byte[]> tempClassBinaryCode = null;
+        try {
+            tempClassBinaryCode = new JavaStringCompiler().compile(map);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Class<?> tempClass = null;
+        try {
+            tempClass = JavaStringCompiler.loadClass(bean.getPackage().getName() + "." + tempClassName, tempClassBinaryCode);
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
+        if (tempClass == null) return null;
+
         try {
             Method tableView = tempClass.getMethod("tableView", String.class);
             tableView.setAccessible(true);
             Object invoke = tableView.invoke(null, json);
             return ((TableView) invoke);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private static Class<?> generateTempClass(Class<?> clazz, Class<?> clazzCompat) {
+    private static String generateTempClass(Class<?> clazz, Class<?> clazzCompat) {
         String packageName = clazz.getPackage().getName();
         String className = clazz.getSimpleName();
         String classCompatName = clazzCompat.getSimpleName();
@@ -280,7 +365,7 @@ public class DynamicClassGenerator {
                 .addStatement("$N.setItems($N)", table, items)
                 .addStatement("$T[] $N = $N($N.class)", TableColumn.class, generate, generateTableColumnMethodName, className)
                 .addStatement("$N.getColumns().addAll($N)", table, generate)
-                .addStatement("$N.setMinWidth(876);", table)
+                .addStatement("$N.setMinWidth(876)", table)
                 .addStatement("return $N", table)
                 .build();
 
@@ -302,7 +387,7 @@ public class DynamicClassGenerator {
             e.printStackTrace();
         }
         System.out.println(sb.toString());
-        return compiler(sb.toString(), resultClassName);
+        return sb.toString();
     }
 
     /**

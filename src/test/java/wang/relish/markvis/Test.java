@@ -1,12 +1,18 @@
 package wang.relish.markvis;
 
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author relish
  * @since 2017/08/31
  */
-public class Test {
+public class Test extends Application {
 
     static AtomicLong aLong = new AtomicLong(0);
     static volatile long count = 0L;
@@ -52,5 +58,29 @@ public class Test {
         System.out.println(arrCla.getSimpleName());
 //        System.out.println(os.getClass().getSimpleName());
 //        System.out.println(os.getClass()==arrClazz);
+    }
+
+
+    @org.junit.Test
+    public void main() {
+        launch(null);
+    }
+
+    @Override
+    public void start(Stage stage) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        Scene scene = new Scene(new Group());
+        stage.setTitle("Table View Sample");
+        stage.setWidth(876);
+        stage.setHeight(500);
+
+        String path = getClass().getResource("/json.json").getPath();
+//        TableView table = DynamicClassGenerator.tableView(path);//tableView(getClass().getResource("/json.json").getPath());
+        String json = Util.readStringFromFile(path);
+//        TableView table = Temp.tableView(json);
+//
+//        ((Group) scene.getRoot()).getChildren().addAll(table);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }
