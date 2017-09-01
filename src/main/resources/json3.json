@@ -1,0 +1,47 @@
+[
+  {
+    "endTime": "1504198328687",
+    "filter": "*",
+    "launchCount": "11",
+    "networkType": "0",
+    "reqCount": "670",
+    "size": "7283",
+    "startTime": "1524197334912"
+  },
+  {
+    "endTime": "1504198328687",
+    "filter": "*.*",
+    "launchCount": "11",
+    "networkType": "2",
+    "reqCount": "0",
+    "size": "0",
+    "startTime": "1524197334912"
+  },
+  {
+    "endTime": "1504198328687",
+    "filter": "*.*",
+    "launchCount": "11",
+    "networkType": "1",
+    "reqCount": "670",
+    "size": "1076",
+    "startTime": "1524197334912"
+  },
+  {
+    "endTime": "1504198328687",
+    "filter": "*.souche.com",
+    "launchCount": "11",
+    "networkType": "2",
+    "reqCount": "0",
+    "size": "0",
+    "startTime": "1524197334912"
+  },
+  {
+    "endTime": "1504198328687",
+    "filter": "*.souche.com",
+    "launchCount": "11",
+    "networkType": "1",
+    "reqCount": "656",
+    "size": "1050",
+    "startTime": "1524197334912"
+  }
+]
