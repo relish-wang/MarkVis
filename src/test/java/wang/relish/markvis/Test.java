@@ -1,5 +1,7 @@
 package wang.relish.markvis;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -45,5 +47,15 @@ public class Test {
         System.out.println(arrClazz.getSimpleName());
 //        System.out.println(os.getClass().getSimpleName());
 //        System.out.println(os.getClass()==arrClazz);
+    }
+
+    @org.junit.Test
+    public void time() {
+
+    }
+
+    private static String l2d(long l) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ENGLISH);
+        return format.format(l);
     }
 }

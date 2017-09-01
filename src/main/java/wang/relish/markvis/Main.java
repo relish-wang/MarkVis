@@ -1,22 +1,16 @@
 package wang.relish.markvis;
 
 import com.sun.istack.internal.NotNull;
-import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.application.Application;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class Main extends Application {
 
@@ -55,33 +49,33 @@ public class Main extends Application {
         table.setItems(items);
         table.setMinWidth(876);
 
-        TableColumn[] generate = generate(maps.get(0).keySet());
+//        TableColumn[] generate = generate(maps.get(0).keySet());
         //noinspection unchecked
-        table.getColumns().addAll(generate);
+//        table.getColumns().addAll(generate);
         return table;
     }
 
-    private static TableColumn[] generate(Set<String> set) {
-        TableColumn[] tableColumns = new TableColumn[set.size()];
-        int i = 0;
-        for (String key : set) {
-            int index = i++;
-            tableColumns[index] = new TableColumn(key);
-            //noinspection unchecked
-            tableColumns[index].setCellValueFactory(new PropertyValueFactory<BeanCompat, SimpleObjectProperty>(key));
-        }
-        return tableColumns;
-    }
-
-    private static List<BeanCompat> compat(Bean[] uploadData) {
-        List<BeanCompat> beanCompats = new ArrayList<BeanCompat>();
-        for (Bean uploadDatum : uploadData) {
-            beanCompats.add(new BeanCompat(uploadDatum));
-        }
-        return beanCompats;
-    }
-
-    private static ObservableList<BeanCompat> getItems(Bean[] uploadData) {
-        return new ObservableListWrapper<BeanCompat>(compat(uploadData));
-    }
+//    private static TableColumn[] generate(Set<String> set) {
+//        TableColumn[] tableColumns = new TableColumn[set.size()];
+//        int i = 0;
+//        for (String key : set) {
+//            int index = i++;
+//            tableColumns[index] = new TableColumn(key);
+//            //noinspection unchecked
+//            tableColumns[index].setCellValueFactory(new PropertyValueFactory<BeanCompat, SimpleObjectProperty>(key));
+//        }
+//        return tableColumns;
+//    }
+//
+//    private static List<BeanCompat> compat(Bean[] uploadData) {
+//        List<BeanCompat> beanCompats = new ArrayList<BeanCompat>();
+//        for (Bean uploadDatum : uploadData) {
+//            beanCompats.add(new BeanCompat(uploadDatum));
+//        }
+//        return beanCompats;
+//    }
+//
+//    private static ObservableList<BeanCompat> getItems(Bean[] uploadData) {
+//        return new ObservableListWrapper<BeanCompat>(compat(uploadData));
+//    }
 }

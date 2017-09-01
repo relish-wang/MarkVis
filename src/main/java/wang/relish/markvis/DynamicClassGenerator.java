@@ -16,6 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -95,7 +97,7 @@ public class DynamicClassGenerator {
             MethodSpec methodSet = MethodSpec.methodBuilder("set" + upperCamelCaseKey)
                     .returns(void.class)
                     .addModifiers(Modifier.PUBLIC)
-                    .addStatement("this.$N = $N;", key, key)
+                    .addStatement("this.$N = $N", key, key)
                     .build();
             builder.addField(fieldSpec)
                     .addMethod(methodGet)
@@ -161,11 +163,15 @@ public class DynamicClassGenerator {
 
     public static TableView tableView(String json, Class<?> clazz, Class<?> classCompat) {
 
-        Object[] uploadData = new Gson().fromJson(json, (Type) clazz);
 
-//        ObservableList<BeanCompat> items = getItems(uploadData);
-        TableView<BeanCompat> table = new TableView<BeanCompat>();
-//        table.setItems(items);
+        Class<?> arrClazz = Array.newInstance(clazz, 0).getClass();
+
+        Object[] been = new Gson().fromJson(json, (Type) arrClazz);
+
+        ObservableList items = null;//= getItems(been);
+//
+        TableView table = new TableView();
+        table.setItems(items);
         TableColumn[] generate = generateTableColumn(clazz);
         table.getColumns().addAll(generate);
         table.setMinWidth(876);
@@ -183,19 +189,33 @@ public class DynamicClassGenerator {
         return tableColumns;
     }
 
-    /*
-        private static List<BeanCompat> compat(Bean[] uploadData) {
-            List<BeanCompat> beanCompats = new ArrayList<BeanCompat>();
-            for (Bean uploadDatum : uploadData) {
-                beanCompats.add(new BeanCompat(uploadDatum));
-            }
-            return beanCompats;
-        }
+    private static Constructor construct(Class<?> clazzCompat, Class<?> clazz) {
+        try {
+            return clazzCompat.getConstructor(clazz);
 
-        private static ObservableList<BeanCompat> getItems(Bean[] uploadData) {
-            return new ObservableListWrapper<BeanCompat>(compat(uploadData));
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
         }
-     */
+        return null;
+    }
+
+//    private static List<BeanCompat> compat(Bean[] uploadData) {
+//        List<BeanCompat> beanCompats = new ArrayList<BeanCompat>();
+//        for (Bean uploadDatum : uploadData) {
+//            beanCompats.add(new BeanCompat(uploadDatum));
+//        }
+//        return beanCompats;
+//    }
+//
+//    private static ObservableList getItems(Object[] been, Class<?> clazz, Class<?> clazzCompat) {
+//        List beanCompats = new ArrayList<>();
+//        Constructor construct = construct(clazzCompat, clazz);
+//        for (Object datum : been) {
+//            beanCompats.add(clazz.newInstance(datum));
+//        }
+//        return new ObservableListWrapper<BeanCompat>(compat(uploadData));
+//    }
+
     private static Class<?> generateTempClass(Class<?> clazz, Class<?> clazzCompat) {
         String packageName = clazz.getPackage().getName();
         String className = clazz.getSimpleName();
