@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -83,4 +84,21 @@ public class Test extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+
+    @org.junit.Test
+    public void arr() throws ClassNotFoundException {
+        Class<?> cla = String.class;
+        Class<?> arrCla = String[].class;
+
+        Class<?> aClass1 = Array.newInstance(cla, 0).getClass();
+        Class<?> aClass2 = Class.forName("[L" + cla.getName() + ";");
+
+
+        System.out.println("case 1: " + (arrCla == aClass1));
+        System.out.println("case 2: " + (arrCla == aClass2));
+
+    }
+
+
 }
