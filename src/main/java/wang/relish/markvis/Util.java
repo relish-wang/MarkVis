@@ -78,6 +78,4 @@ final class Util {
         }
         return list;
     }
-
-
 }

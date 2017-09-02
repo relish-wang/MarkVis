@@ -4,6 +4,7 @@ import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,5 +113,18 @@ public class JavaStringCompiler {
             return new JavaStringCompiler(this.map);
         }
 
+    }
+
+
+    private void compileTheJavaSrcFile(File... srcFiles) {
+        try {
+            JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+            StandardJavaFileManager fileMgr = compiler.getStandardFileManager(null, null, null);
+            JavaCompiler.CompilationTask t = compiler.getTask(null, fileMgr, null, null, null, fileMgr.getJavaFileObjects(srcFiles));
+            t.call();
+            fileMgr.close();
+        } catch (Throwable e) {
+            throw new RuntimeException("Fail to compile files [" + srcFiles + "]", e);
+        }
     }
 }
