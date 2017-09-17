@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import wang.relish.markvis.complier.JavaStringCompiler;
+import wang.relish.markvis.compiler.JavaStringCompiler;
 
 import javax.lang.model.element.Modifier;
 import java.io.File;
@@ -144,7 +144,9 @@ public class DynamicClassGenerator {
                     .addMethod(methodGet)
                     .addMethod(methodSet);
         }
-        TypeSpec typeSpec = builder.build();
+        TypeSpec typeSpec = builder
+                .addModifiers(Modifier.PUBLIC)//类设置为public
+                .build();
         JavaFile javaFile = JavaFile.builder(packageName, typeSpec)
                 .build();
         StringBuilder sb = new StringBuilder();
@@ -200,6 +202,7 @@ public class DynamicClassGenerator {
                     .addMethod(methodSet);
         }
         TypeSpec typeSpec = builder
+                .addModifiers(Modifier.PUBLIC)//类设置为public
                 .addMethod(constructorBuilder.build()).build();
         JavaFile javaFile = JavaFile.builder(packageName, typeSpec).build();
         StringBuilder sb = new StringBuilder();
@@ -372,6 +375,7 @@ public class DynamicClassGenerator {
 
         String resultClassName = "Temp";
         TypeSpec typeSpec = TypeSpec.classBuilder(resultClassName)
+                .addModifiers(Modifier.PUBLIC)//类设置为public
                 .addMethod(compatMethod)
                 .addMethod(getItemsMethod)
                 .addMethod(generateTableColumnMethod)

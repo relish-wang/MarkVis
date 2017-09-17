@@ -1,4 +1,4 @@
-package wang.relish.markvis.complier;
+package wang.relish.markvis.compiler;
 
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;

@@ -1,4 +1,4 @@
-package wang.relish.markvis.complier;
+package wang.relish.markvis.compiler;
 
 import java.net.URL;
 import java.net.URLClassLoader;
