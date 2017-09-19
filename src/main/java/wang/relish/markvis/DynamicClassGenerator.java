@@ -83,6 +83,8 @@ public class DynamicClassGenerator {
         }
         Class<?> clazz;
         try {
+
+
             clazz = JavaStringCompiler.loadClass(path, results);
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();

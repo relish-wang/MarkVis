@@ -4,7 +4,12 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javassist.CannotCompileException;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.NotFoundException;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.atomic.AtomicLong;
@@ -100,5 +105,12 @@ public class Test extends Application {
 
     }
 
+    @org.junit.Test
+    public void assist() throws NotFoundException, CannotCompileException, IOException {
+        ClassPool pool = ClassPool.getDefault();
+        CtClass cc = pool.get("test.Rectangle");
+        cc.setSuperclass(pool.get("test.Point"));
+        cc.writeFile();
+    }
 
 }

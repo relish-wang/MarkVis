@@ -1,10 +1,11 @@
 package wang.relish.markvis.test;
 
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeSpec;
+import javassist.CannotCompileException;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.NotFoundException;
 
-import javax.lang.model.element.Modifier;
+import java.io.IOException;
 
 /**
  * @author relish
@@ -12,31 +13,17 @@ import javax.lang.model.element.Modifier;
  */
 public class Test {
 
-    public static void main(String[] args) {
-        MethodSpec methodSpec = MethodSpec.methodBuilder("f")
-                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                .returns(void.class)
-                .addStatement("$T.out.println($S)", System.class, "HelloWord!")
-                .build();
-        TypeSpec typeSpec = TypeSpec.classBuilder("A")
-                .addMethod(methodSpec)
-                .build();
-        JavaFile file = JavaFile.builder("", typeSpec).build();
+    public static void main(String[] args) throws NotFoundException, CannotCompileException, IOException, IllegalAccessException, InstantiationException {
+        new ChildA();
 
-        try {
-            new A().finalize();
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-    }
+        ClassPool pool = ClassPool.getDefault();
+        CtClass ctClass = pool.getCtClass("wang.relish.markvis.test.ChildA");
+        ctClass.setSuperclass(pool.get("wang.relish.markvis.test.A"));
+        ctClass.setName("ChildA2");
+        ctClass.writeFile();
 
-
-    static class A {
-        @Override
-        protected void finalize() throws Throwable {
-            System.out.println("123");
-            super.finalize();
-        }
+        Class aClass = ctClass.toClass();
+        Object o = aClass.newInstance();
     }
 
 }
