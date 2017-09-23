@@ -1,47 +1,65 @@
 [
   {
-    "endTime": "1504198328687",
+    "launchCount": "2",
+    "startTime": "1506061940302",
+    "endTime": "1506061940731",
     "filter": "*",
-    "launchCount": "11",
+    "size": "0",
     "networkType": "0",
-    "reqCount": "670",
-    "size": "7283",
-    "startTime": "1524197334912"
+    "reqCount": "0"
   },
   {
-    "endTime": "1504198328687",
+    "launchCount": "2",
+    "startTime": "1506061940302",
+    "endTime": "1506061940731",
     "filter": "*.*",
-    "launchCount": "11",
+    "size": "16450",
     "networkType": "2",
-    "reqCount": "0",
-    "size": "0",
-    "startTime": "1524197334912"
+    "reqCount": "141"
   },
   {
-    "endTime": "1504198328687",
+    "launchCount": "2",
+    "startTime": "1506061940302",
+    "endTime": "1506061940731",
     "filter": "*.*",
-    "launchCount": "11",
-    "networkType": "1",
-    "reqCount": "670",
-    "size": "1076",
-    "startTime": "1524197334912"
-  },
-  {
-    "endTime": "1504198328687",
-    "filter": "*.souche.com",
-    "launchCount": "11",
-    "networkType": "2",
-    "reqCount": "0",
     "size": "0",
-    "startTime": "1524197334912"
+    "networkType": "1",
+    "reqCount": "0"
   },
   {
-    "endTime": "1504198328687",
+    "launchCount": "2",
+    "startTime": "1506061940302",
+    "endTime": "1506061940731",
     "filter": "*.souche.com",
-    "launchCount": "11",
+    "size": "2",
+    "networkType": "2",
+    "reqCount": "2"
+  },
+  {
+    "launchCount": "2",
+    "startTime": "1506061940302",
+    "endTime": "1506061940731",
+    "filter": "*.souche.com",
+    "size": "0",
     "networkType": "1",
-    "reqCount": "656",
-    "size": "1050",
-    "startTime": "1524197334912"
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "2",
+    "startTime": "1506061940302",
+    "endTime": "1506061940731",
+    "filter": "*.upload.souche.com",
+    "size": "0",
+    "networkType": "2",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "2",
+    "startTime": "1506061940302",
+    "endTime": "1506061940731",
+    "filter": "*.upload.souche.com",
+    "size": "0",
+    "networkType": "1",
+    "reqCount": "0"
   }
 ]

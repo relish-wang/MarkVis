@@ -1,65 +1,119 @@
 [
   {
-    "endTime": "1504199652273",
-    "filter": "*.upload.souche.com",
-    "launchCount": "13",
-    "networkType": "2",
-    "reqCount": "0",
-    "size": "0",
-    "startTime": "1504198550542"
-  },
-  {
-    "endTime": "1504199652273",
-    "filter": "*.upload.souche.com",
-    "launchCount": "13",
-    "networkType": "1",
-    "reqCount": "0",
-    "size": "0",
-    "startTime": "1504198550542"
-  },
-  {
-    "endTime": "1504199652273",
+    "launchCount": "16",
+    "startTime": "1506068307717",
+    "endTime": "1506068803396",
     "filter": "*",
-    "launchCount": "13",
+    "size": "26241",
     "networkType": "0",
-    "reqCount": "262",
-    "size": "2166",
-    "startTime": "1504198550542"
+    "reqCount": "0"
   },
   {
-    "endTime": "1504199652273",
+    "launchCount": "16",
+    "startTime": "1506068307717",
+    "endTime": "1506068803396",
     "filter": "*.*",
-    "launchCount": "13",
+    "size": "24593",
     "networkType": "2",
-    "reqCount": "0",
-    "size": "0",
-    "startTime": "1504198550542"
+    "reqCount": "195"
   },
   {
-    "endTime": "1504199652273",
+    "launchCount": "16",
+    "startTime": "1506068307717",
+    "endTime": "1506068803396",
     "filter": "*.*",
-    "launchCount": "13",
-    "networkType": "1",
-    "reqCount": "262",
-    "size": "440",
-    "startTime": "1504198550542"
-  },
-  {
-    "endTime": "1504199652273",
-    "filter": "*.souche.com",
-    "launchCount": "13",
-    "networkType": "2",
-    "reqCount": "0",
     "size": "0",
-    "startTime": "1504198550542"
+    "networkType": "1",
+    "reqCount": "0"
   },
   {
-    "endTime": "1504199652273",
+    "launchCount": "16",
+    "startTime": "1506068307717",
+    "endTime": "1506068803396",
     "filter": "*.souche.com",
-    "launchCount": "13",
+    "size": "2",
+    "networkType": "2",
+    "reqCount": "2"
+  },
+  {
+    "launchCount": "16",
+    "startTime": "1506068307717",
+    "endTime": "1506068803396",
+    "filter": "*.souche.com",
+    "size": "0",
     "networkType": "1",
-    "reqCount": "260",
-    "size": "438",
-    "startTime": "1504198550542"
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "16",
+    "startTime": "1506068307717",
+    "endTime": "1506068803396",
+    "filter": "*.upload.souche.com",
+    "size": "0",
+    "networkType": "2",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "16",
+    "startTime": "1506068307717",
+    "endTime": "1506068803396",
+    "filter": "*.upload.souche.com",
+    "size": "0",
+    "networkType": "1",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "16",
+    "startTime": "1506068307717",
+    "endTime": "1506068803396",
+    "filter": "qxu1606440290.my3w.com",
+    "size": "41",
+    "networkType": "2",
+    "reqCount": "43"
+  },
+  {
+    "launchCount": "16",
+    "startTime": "1506068307717",
+    "endTime": "1506068803396",
+    "filter": "qxu1606440290.my3w.com",
+    "size": "0",
+    "networkType": "1",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "16",
+    "startTime": "1506068307717",
+    "endTime": "1506068803396",
+    "filter": "www.httpwatch.com",
+    "size": "600",
+    "networkType": "2",
+    "reqCount": "18"
+  },
+  {
+    "launchCount": "16",
+    "startTime": "1506068307717",
+    "endTime": "1506068803396",
+    "filter": "www.httpwatch.com",
+    "size": "0",
+    "networkType": "1",
+    "reqCount": "0"
+  },
+  {
+    "launchCount": "16",
+    "startTime": "1506068307717",
+    "endTime": "1506068803396",
+    "filter": "alissl.ucdl.pp.uc.cn",
+    "size": "23601",
+    "networkType": "2",
+    "reqCount": "3"
+  },
+  {
+    "launchCount": "16",
+    "startTime": "1506068307717",
+    "endTime": "1506068803396",
+    "filter": "alissl.ucdl.pp.uc.cn",
+    "size": "0",
+    "networkType": "1",
+    "reqCount": "0"
   }
 ]
