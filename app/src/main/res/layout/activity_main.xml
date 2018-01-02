@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <EditText
+        android:id="@+id/et_source"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -16,11 +17,13 @@
         android:layout_height="wrap_content">
 
         <Spinner
+            android:id="@+id/spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <Button
+            android:id="@+id/btn_run"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="run" />
@@ -33,6 +36,7 @@
         android:layout_weight="1">
 
         <EditText
+            android:id="@+id/et_input"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -40,6 +44,7 @@
             tools:ignore="NestedWeights" />
 
         <EditText
+            android:id="@+id/et_output"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
