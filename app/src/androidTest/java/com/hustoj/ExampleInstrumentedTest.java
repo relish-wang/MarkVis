@@ -1,4 +1,4 @@
-package com.hostoj;
+package com.hustoj;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.hostoj", appContext.getPackageName());
+        assertEquals("com.hustoj", appContext.getPackageName());
     }
 }

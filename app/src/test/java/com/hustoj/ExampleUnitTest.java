@@ -1,4 +1,4 @@
-package com.hostoj;
+package com.hustoj;
 
 import org.junit.Test;
 
