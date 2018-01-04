@@ -53,5 +53,10 @@
         android:layout_margin="16dp"
         android:text="登录" />
 
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="123213"/>
 
 </LinearLayout>
