@@ -13,6 +13,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.internal.tls.OkHostnameVerifier;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class ServiceAccessor {
@@ -65,6 +66,7 @@ public class ServiceAccessor {
                 if (null == retrofit) {
                     retrofit = new Retrofit.Builder()
                             .baseUrl(getBaseUrl())
+                            .addConverterFactory(ScalarsConverterFactory.create())
                             .addConverterFactory(SimpleXmlConverterFactory.createNonStrict())
                             .addConverterFactory(GsonConverterFactory.create())
                             .client(NORMAL_CLIENT)
