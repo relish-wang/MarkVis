@@ -1,17 +1,22 @@
 package com.hustoj.network;
 
 
-import com.hustoj.HttpService;
+import android.support.annotation.NonNull;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.ConnectionPool;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.internal.tls.OkHostnameVerifier;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
@@ -43,6 +48,15 @@ public class ServiceAccessor {
                         .setLevel(HttpLoggingInterceptor.Level.BODY)
                         .setResponseBodyMaxLogBytes(60 * 1024)
                         .setSkippedHeaders(Arrays.asList(SKIPPED_HEADERS)))
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(@NonNull Chain chain) throws IOException {
+                        Request request = chain.request().newBuilder()
+                                .addHeader("Cookie", "hustoj-SESSID=s1uuue0ui6o1714prtlgkvgik0")
+                                .build();
+                        return chain.proceed(request);
+                    }
+                })
                 .sslSocketFactory(X509TrustManagerBuilder.createSSLSocketFactory(trustManager), trustManager)
                 .hostnameVerifier(OkHostnameVerifier.INSTANCE)
                 .build();
@@ -69,6 +83,7 @@ public class ServiceAccessor {
                             .addConverterFactory(ScalarsConverterFactory.create())
                             .addConverterFactory(SimpleXmlConverterFactory.createNonStrict())
                             .addConverterFactory(GsonConverterFactory.create())
+                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//支持RxJava
                             .client(NORMAL_CLIENT)
                             .build();
                 }
