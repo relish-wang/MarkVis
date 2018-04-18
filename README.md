@@ -25,7 +25,7 @@
 }  
 ``` 
 
-代码:[xml2json.js](src/xml2json.js)
+代码:[xml2json.js](src/wang/relish/xml2json.js)
 
 # C
 使用递归倒序输出字符串。
