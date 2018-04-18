@@ -1,9 +1,6 @@
 package wang.relish.visitor;
 
-import wang.relish.visitor.property.Hall;
-import wang.relish.visitor.property.Kitchen;
-import wang.relish.visitor.property.Room;
-import wang.relish.visitor.property.Toilet;
+import wang.relish.visitor.property.*;
 import wang.relish.visitor.visitors.IVisitor;
 import wang.relish.visitor.visitors.KitchenToiletCleaner;
 import wang.relish.visitor.visitors.OverallCleaner;
@@ -14,6 +11,8 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
+ * 访问者模式
+ *
  * @author relish
  * @since 2018/04/18
  */
@@ -22,6 +21,15 @@ public class Client {
     private Kitchen kitchen = new Kitchen();
     private Room room = new Room();
     private Toilet toilet = new Toilet();
+
+    private List<IProperty> list = new ArrayList<IProperty>() {
+        {
+            add(hall);
+            add(kitchen);
+            add(room);
+            add(toilet);
+        }
+    };
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -43,9 +51,8 @@ public class Client {
         IVisitor visitor = cleaners.get(choose - 1);
 
         Client client = new Client();
-        visitor.visit(client.hall);
-        visitor.visit(client.kitchen);
-        visitor.visit(client.room);
-        visitor.visit(client.toilet);
+        for (IProperty property : client.list) {
+            property.accept(visitor);
+        }
     }
 }
