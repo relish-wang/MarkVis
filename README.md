@@ -26,3 +26,18 @@
 ``` 
 
 代码:[xml2json.js](src/xml2json.js)
+
+# C
+使用递归倒序输出字符串。
+```
+#include<stdio.h>
+void p(){
+	char c = getchar();
+	if(c!='\n')	p();
+	printf("%c",c);
+}
+int main(){
+	p();
+	return 0;
+}
+```
