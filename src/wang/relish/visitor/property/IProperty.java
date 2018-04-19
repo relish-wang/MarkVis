@@ -3,6 +3,8 @@ package wang.relish.visitor.property;
 import wang.relish.visitor.visitors.IVisitor;
 
 /**
+ * 被访问的
+ *
  * @author relish
  * @since 2018/04/18
  */

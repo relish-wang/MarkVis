@@ -7,6 +7,8 @@ import wang.relish.visitor.property.Room;
 import wang.relish.visitor.property.Toilet;
 
 /**
+ * 访问者
+ *
  * @author relish
  * @since 2018/04/18
  */

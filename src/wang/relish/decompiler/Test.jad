@@ -1,0 +1,22 @@
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+// Jad home page: http://www.kpdus.com/jad.html
+// Decompiler options: packimports(3) 
+// Source File Name:   Test.java
+
+package wang.relish.decompiler;
+
+
+public class Test
+{
+
+    public Test()
+    {
+        id = 0x12d687;
+    }
+
+    public void test()
+    {
+    }
+
+    public int id;
+}
