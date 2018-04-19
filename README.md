@@ -19,8 +19,8 @@
      children: [{  
        name: 'C'  
     }, {  
-            name: 'D'  
-        }]  
+        name: 'D'  
+    }]  
   }]  
 }  
 ``` 
